@@ -1,0 +1,6 @@
+.idea/
+target/
+*.iml
+src/main/python/*.xml
+*.sh
+!pom.xml
