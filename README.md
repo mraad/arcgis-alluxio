@@ -10,7 +10,7 @@ This Proof of Concept project demonstrates the integration of [ArcGIS](https://p
 
 - An [ArcPy](http://pro.arcgis.com/en/pro-app/arcpy/get-started/what-is-arcpy-.htm) based toolbox that:
     - Exports a feature class content into a file in WKT format in Alluxio, in such that it will be used by the above mentioned Spark App.
-    - Import the assembled tracks and create an ephemeral feature class to be viewed on a map.
+    - Imports the assembled tracks and create an ephemeral feature class to be viewed on a map.
 
 ![](media/pro.png)
 
