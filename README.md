@@ -4,9 +4,9 @@ This Proof of Concept project demonstrates the integration of [ArcGIS](https://p
 
 - A [Spark](http://spark.apache.org/) based application that:
     - Reads [AIS](https://en.wikipedia.org/wiki/Automatic_identification_system) target data from Alluxio.
-    - Assemble the AIS targets into tracks.
-    - Smooth the tracks using a [lowpass filter](http://phrogz.net/js/framerate-independent-low-pass-filter.html).
-    - Save the tracks in WKT format into Alluxio.
+    - Assembles the AIS targets into tracks.
+    - Smooths the tracks using a [lowpass filter](http://phrogz.net/js/framerate-independent-low-pass-filter.html).
+    - Saves the tracks in WKT format into Alluxio.
 
 - An [ArcPy](http://pro.arcgis.com/en/pro-app/arcpy/get-started/what-is-arcpy-.htm) based toolbox that:
     - Exports a feature class content into a file in WKT format in Alluxio, in such that it will be used by the above mentioned Spark App.
