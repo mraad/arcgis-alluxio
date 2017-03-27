@@ -12,6 +12,8 @@ This Proof of Concept project demonstrates the integration of [ArcGIS](https://p
     - Exports a feature class content into a file in WKT format in Alluxio, in such that it will be used by the above mentioned Spark App.
     - Imports the assembled tracks and create an ephemeral feature class to be viewed on a map.
 
+![](media/integration.png)
+
 ![](media/pro.png)
 
 ## AIS Data
@@ -37,27 +39,27 @@ The following is a sample session that uses the Alluxio REST interface:
 Get information about the master and the worker:
 
 ```
-curl -XGET alluxio_master:19999/api/v1/master/info
-curl -XGET alluxio_worker:30000/api/v1/worker/info
+curl -XGET localhost:19999/api/v1/master/info
+curl -XGET localhost:30000/api/v1/worker/info
 ```
 
 List the files in the `/tracks` Alluxio folder:
 
 ```
-curl -XGET alluxio_master:19999/api/v1/master/file/list_status?path=/tracks
+curl -XGET localhost:19999/api/v1/master/file/list_status?path=/tracks
 ```
 
 Get a stream ID for the file `/tracks/part-00006-a43cf760-b8d2-4a4b-96f7-cd640473f8a7.csv`:
 
 ```
-curl -XPOST alluxio_proxy:39999/api/v1/paths//tracks/part-00006-a43cf760-b8d2-4a4b-96f7-cd640473f8a7.csv/open-file
+curl -XPOST localhost:39999/api/v1/paths//tracks/part-00006-a43cf760-b8d2-4a4b-96f7-cd640473f8a7.csv/open-file
 ```
 
 Assuming the returned stream ID is `18`, read the content of the file and close the stream:
 
 ```
-curl -XPOST alluxio_proxy:39999/api/v1/streams/18/read
-curl -XPOST alluxio_proxy:39999/api/v1/streams/18/close
+curl -XPOST localhost:39999/api/v1/streams/18/read
+curl -XPOST localhost:39999/api/v1/streams/18/close
 ```
 
 ## ArcGIS Alluxio Integration
@@ -76,7 +78,7 @@ The `Import Track` tool imports the content of files in Alluxio as features into
 
 ## Track Assembly
 
-`TrackAssembler` is a Scala Spark application that reads the exported targets from an Alluxio based file, assemble them into a set of tracks and save the tracks into Alluxio.  The target assembly is based on time and distance, where a track is composed of consecutive targets that are within a user defined space and time offset from each other.  The result in Alluxio is in TSV format where the geometry is in WKT format.
+`TrackAssembler` is a Scala Spark application that reads the exported targets from an Alluxio based file, assembles them into a set of tracks and saves the tracks into Alluxio.  The target assembly is based on time and distance, where a track is composed of a set of consecutive targets that are within a user defined space and time offset from each other.  The result in Alluxio is in TSV format where the geometry is in WKT format.
 
 ### Building The Application
 
@@ -132,7 +134,7 @@ time spark-submit\
 ```
 docker run -it\
  --rm\
- --name alluxio_master\
+ --name localhost\
  -p 19998:19998\
  -p 19999:19999\
  alluxio master
@@ -142,13 +144,13 @@ docker run -it\
 export SHM_SIZE=2GB
 docker run -it --rm\
  --shm-size=$SHM_SIZE\
- --hostname alluxio_worker\
- --name alluxio_worker\
- --link alluxio_master:alluxio_master\
+ --hostname localhost\
+ --name localhost\
+ --link localhost:localhost\
  -p 29998:29998\
  -p 29999:29999\
  -p 30000:30000\
- -e ALLUXIO_MASTER_HOSTNAME=alluxio_master\
+ -e ALLUXIO_MASTER_HOSTNAME=localhost\
  -e ALLUXIO_MASTER_PORT=19998\
  -e ALLUXIO_WORKER_MEMORY_SIZE=$SHM_SIZE\
  alluxio worker
@@ -156,11 +158,11 @@ docker run -it --rm\
 
 ```
 docker run -it --rm\
- --hostname alluxio_proxy\
- --name alluxio_proxy\
- --link alluxio_master:alluxio_master\
+ --hostname localhost\
+ --name localhost\
+ --link localhost:localhost\
  -p 39999:39999\
- -e ALLUXIO_MASTER_HOSTNAME=alluxio_master\
+ -e ALLUXIO_MASTER_HOSTNAME=localhost\
  -e ALLUXIO_MASTER_PORT=19998\
  alluxio proxy
 ```
