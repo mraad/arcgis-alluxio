@@ -1,5 +1,6 @@
 package com.esri
 
+import com.esri.mercator._
 import org.joda.time.format.DateTimeFormatter
 
 import scala.collection.mutable.ArrayBuffer
@@ -14,11 +15,24 @@ case class TrackTargets(track: String, targets: Seq[Target]) {
       .map(TrackTargets(track, _))
   }
 
-  case class Prev(lon: Double, lat: Double, arr: ArrayBuffer[Target])
+  def toGrid(origX: Double, origY: Double, size: Double) = {
+    val lowX = origX.toMercatorX
+    val lowY = origY.toMercatorY
+    val grid = targets
+      .map(target => {
+        val q = ((target.lon.toMercatorX - lowX) / size).floor.toInt
+        val r = ((target.lat.toMercatorY - lowY) / size).floor.toInt
+        Cell(q, r)
+      })
+      .distinct
+    TrackGrid(track, grid)
+  }
 
   def smooth(alpha: Double) = {
     lowPassFilter(alpha)
   }
+
+  case class Prev(lon: Double, lat: Double, arr: ArrayBuffer[Target])
 
   private def lowPassFilter(alpha: Double) = {
     // Apply low pass filter - https://en.wikipedia.org/wiki/Low-pass_filter
