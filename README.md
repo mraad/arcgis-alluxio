@@ -123,7 +123,7 @@ time spark-submit\
  target/arcgis-alluxio-0.1-jar-with-dependencies.jar
 ```
 
-`PathFinder` is an application that assembles tracks from targets based on a target attribute and the proximity of targets to each other by space and time.  A mesh with square cells is overlaid on each track and the track is decomposed into the cells that intersect the track. The result is saved in JSON format in Alluxio.
+`PathFinder` is an application that assembles tracks from targets based on a unique target attribute value and the proximity of targets to each other by space and time.  A mesh with square cells is overlaid on each track and the track is decomposed into the cells that intersect the track. The result is saved in [parquet](https://parquet.apache.org/) format in Alluxio.
 
 ### Bonus App (HexApp)
 

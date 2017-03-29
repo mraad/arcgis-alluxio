@@ -15,17 +15,17 @@ case class TrackTargets(track: String, targets: Seq[Target]) {
       .map(TrackTargets(track, _))
   }
 
-  def toGrid(origX: Double, origY: Double, size: Double) = {
+  def toTrackCells(origX: Double, origY: Double, size: Double) = {
     val lowX = origX.toMercatorX
     val lowY = origY.toMercatorY
-    val grid = targets
+    val cells = targets
       .map(target => {
         val q = ((target.lon.toMercatorX - lowX) / size).floor.toInt
         val r = ((target.lat.toMercatorY - lowY) / size).floor.toInt
         Cell(q, r)
       })
       .distinct
-    TrackGrid(track, grid)
+    TrackCells(track, cells)
   }
 
   def smooth(alpha: Double) = {
