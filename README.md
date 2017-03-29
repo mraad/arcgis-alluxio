@@ -110,19 +110,6 @@ The configuration `spark.app.time.millis` defines in milliseconds the time toler
 The configuration `spark.app.dist.meters` defines in meter the distance tolerance for a target to belong to a track.
 Both conditions have to be met for track assembly.
 
-### Bonus App (HexApp)
-
-```
-time spark-submit\
- --master local[*]\
- --class com.esri.HexApp\
- --driver-memory 16G\
- --executor-memory 16G\
- --jars ${ALLUXIO_HOME}/core/client/target/alluxio-core-client-1.4.0-jar-with-dependencies.jar\
- --conf spark.ui.enabled=false\
- target/arcgis-alluxio-0.1-jar-with-dependencies.jar
-```
-
 ### Path Finder App
 
 ```
@@ -137,6 +124,19 @@ time spark-submit\
 ```
 
 `PathFinder` is an application that assembles tracks from targets based on a target attribute and the proximity of targets to each other by space and time.  A mesh with square cells is overlaid on each track and the track is decomposed into the cells that intersect the track. The result is saved in JSON format in Alluxio.
+
+### Bonus App (HexApp)
+
+```
+time spark-submit\
+ --master local[*]\
+ --class com.esri.HexApp\
+ --driver-memory 16G\
+ --executor-memory 16G\
+ --jars ${ALLUXIO_HOME}/core/client/target/alluxio-core-client-1.4.0-jar-with-dependencies.jar\
+ --conf spark.ui.enabled=false\
+ target/arcgis-alluxio-0.1-jar-with-dependencies.jar
+```
 
 ### References
 
