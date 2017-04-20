@@ -56,7 +56,7 @@ object PathFinder extends App {
       .repartition(conf.getInt("spark.app.output.repartition", 8))
       .write
       .mode(SaveMode.Overwrite)
-      .format(conf.get("spar.app.output.format", "json"))
+      .format(conf.get("spark.app.output.format", "json"))
       .save(conf.get("spark.app.output.path", "alluxio://localhost:19998/tracks"))
 
   } finally {
