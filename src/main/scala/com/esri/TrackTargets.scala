@@ -1,6 +1,6 @@
 package com.esri
 
-import com.esri.mercator._
+import com.esri.webmercator._
 import org.joda.time.format.DateTimeFormatter
 
 import scala.collection.mutable.ArrayBuffer

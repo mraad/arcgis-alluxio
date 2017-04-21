@@ -5,7 +5,7 @@
 
     <groupId>com.esri</groupId>
     <artifactId>arcgis-alluxio</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -63,8 +63,8 @@
         </dependency>
         <dependency>
             <groupId>com.esri</groupId>
-            <artifactId>webmercator</artifactId>
-            <version>1.0</version>
+            <artifactId>webmercator_${scala.compact}</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>com.esri</groupId>

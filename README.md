@@ -103,7 +103,7 @@ spark-submit\
  --conf spark.app.input.path=alluxio://localhost:19998/Broadcast.csv\
  --conf spark.app.output.repartition=8\
  --conf spark.app.output.path=alluxio://localhost:19998/tracks\
- target/arcgis-alluxio-0.1-jar-with-dependencies.jar
+ target/arcgis-alluxio-0.2-jar-with-dependencies.jar
 ```
 
 The configuration `spark.app.time.millis` defines in milliseconds the time tolerance for a target to belong to a track.
@@ -120,7 +120,7 @@ time spark-submit\
  --executor-memory 16G\
  --jars ${ALLUXIO_HOME}/core/client/target/alluxio-core-client-1.4.0-jar-with-dependencies.jar\
  --conf spark.ui.enabled=false\
- target/arcgis-alluxio-0.1-jar-with-dependencies.jar
+ target/arcgis-alluxio-0.2-jar-with-dependencies.jar
 ```
 
 `PathFinder` is an application that assembles tracks from targets based on a unique target attribute value and the proximity of targets to each other by space and time.  A mesh with square cells is overlaid on each track and the track is decomposed into the cells that intersect the track. The result is saved in [parquet](https://parquet.apache.org/) format in Alluxio.
@@ -135,7 +135,7 @@ time spark-submit\
  --executor-memory 16G\
  --jars ${ALLUXIO_HOME}/core/client/target/alluxio-core-client-1.4.0-jar-with-dependencies.jar\
  --conf spark.ui.enabled=false\
- target/arcgis-alluxio-0.1-jar-with-dependencies.jar
+ target/arcgis-alluxio-0.2-jar-with-dependencies.jar
 ```
 
 ### References

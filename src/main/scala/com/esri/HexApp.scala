@@ -1,7 +1,7 @@
 package com.esri
 
 import com.esri.hex.HexGrid
-import com.esri.mercator._
+import com.esri.webmercator._
 import com.vividsolutions.jts.geom.{GeometryFactory, PrecisionModel}
 import com.vividsolutions.jts.io.WKTReader
 import org.apache.spark.sql.SparkSession
